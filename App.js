@@ -3,16 +3,16 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { LandingPage } from "./components/LandingPage";
+import { LandingPage } from "./pages/LandingPage";
 
 const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={LandingPage} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Stack.Navigator>
+      <Stack.Screen name="Home" component={LandingPage} />
+    </Stack.Navigator>
+  </NavigationContainer>
   );
 }
 
