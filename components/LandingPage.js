@@ -8,8 +8,6 @@ import {
   Button,
   Pressable,
 } from "react-native";
-import JournalIcon from "./JournalIcon";
-const image = { uri: "/Dot.png" };
 
 export const LandingPage = () => {
   return (
@@ -17,7 +15,7 @@ export const LandingPage = () => {
       <ImageBackground
         resizeMode="cover"
         style={styles.backgroundImage}
-        source={require("./Dot.png")}
+        source={require("../assets/Dot.png")}
       >
         <View style={styles.div}>
           <Image source={require("../journalIcon.png")} style={styles.image} />
