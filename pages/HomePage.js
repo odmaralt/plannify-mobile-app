@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { Header } from "../components/Header";
 import { useFonts } from "expo-font";
+import CheckBox from "@react-native-community/checkbox";
 
 export const HomePage = () => {
   const [loaded] = useFonts({
@@ -36,6 +37,17 @@ export const HomePage = () => {
         </View>
         <Text style={styles.flower}>❀</Text>
         <Text style={styles.flower2}>❀</Text>
+        <Text>To-Do List</Text>
+        <View style={styles.taskDiv}>
+          <CheckBox
+            lineWidth={2}
+            onFillColor="#626375"
+            onCheckColor="white"
+            boxType="square"
+            style={styles.checkbox}
+          />
+          <Text style={styles.task}>Task 2</Text>
+        </View>
       </ImageBackground>
     </View>
   );

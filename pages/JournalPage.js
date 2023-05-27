@@ -36,10 +36,10 @@ export const JournalPage = () => {
           </View>
         </View>
         <View style={styles.buttons}>
-          <Pressable style={styles.button1}>
+          <Pressable style={styles.saveButton}>
             <Text style={styles.buttonText}>Save</Text>
           </Pressable>
-          <Pressable style={styles.button2}>
+          <Pressable style={styles.newPromptButton}>
             <Text style={styles.buttonText}>New Prompt</Text>
           </Pressable>
         </View>
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
   },
-  button1: {
+  saveButton: {
     backgroundColor: "#676A59",
     paddingTop: 10,
     width: 100,
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingBottom: 10,
   },
-  button2: {
+  newPromptButton: {
     alignItems: "center",
     paddingTop: 10,
     borderRadius: 5,

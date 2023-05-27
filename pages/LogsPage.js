@@ -22,18 +22,18 @@ export const LogsPage = () => {
 
         <View style={styles.top}>
           <Text style={styles.date}>Date</Text>
-          <Text style={styles.remaining}>Sleep</Text>
-          <Text style={styles.remaining2}>Water</Text>
-          <Text style={styles.remaining3}>Journal</Text>
+          <Text style={styles.sleep}>Sleep</Text>
+          <Text style={styles.water}>Water</Text>
+          <Text style={styles.journal}>Journal</Text>
         </View>
         <View style={{ height: 450 }}>
           <ScrollView>
             <View style={styles.logDiv}>
               <Text style={styles.date}>01/01/2023</Text>
-              <Text style={styles.remaining}>4 cups</Text>
-              <Text style={styles.remaining2}>4 hr 4 min</Text>
+              <Text style={styles.sleep}>4 cups</Text>
+              <Text style={styles.water}>4 hr 4 min</Text>
               <Pressable>
-                <Text style={styles.remaining3}>
+                <Text style={styles.journal}>
                   Hello, today I was walking to my house and then
                 </Text>
               </Pressable>
@@ -61,21 +61,21 @@ const styles = StyleSheet.create({
     color: "#f2f2f2",
     fontWeight: 600,
   },
-  remaining: {
+  sleep: {
     position: "absolute",
     left: 110,
     color: "#f2f2f2",
     fontWeight: 600,
     fontSize: 12,
   },
-  remaining2: {
+  water: {
     position: "absolute",
     left: 175,
     color: "#f2f2f2",
     fontSize: 12,
     fontWeight: 600,
   },
-  remaining3: {
+  journal: {
     position: "absolute",
     fontSize: 12,
     left: 260,

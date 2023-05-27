@@ -23,7 +23,7 @@ export const LandingPage = () => {
           />
         </View>
 
-        <Text style={styles.text1}>Plannify</Text>
+        <Text style={styles.plannifyText}>Plannify</Text>
         <Pressable style={styles.button}>
           <Text style={styles.buttonText}>LOGIN</Text>
         </Pressable>
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  text1: {
+  plannifyText: {
     color: "#EDF0F3",
     fontWeight: "800",
     textAlign: "center",

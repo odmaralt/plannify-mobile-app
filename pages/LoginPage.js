@@ -7,10 +7,10 @@ export const LoginPage = () => {
       <View style={styles.centerDiv}>
         <View style={styles.header}>
           <Pressable>
-            <Text style={styles.headerText}>Login</Text>
+            <Text style={styles.loginHeader}>Login</Text>
           </Pressable>
           <Pressable>
-            <Text style={styles.headerText2}>Sign Up</Text>
+            <Text style={styles.signUpHeader}>Sign Up</Text>
           </Pressable>
         </View>
         <View style={styles.inputDiv}>
@@ -78,14 +78,14 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: 500,
   },
-  headerText: {
+  loginHeader: {
     fontSize: 12,
     color: "rgba(83, 82, 79, 1)",
     fontWeight: 600,
     paddingRight: 20,
     textDecorationLine: "underline",
   },
-  headerText2: {
+  signUpHeader: {
     fontSize: 12,
     color: "rgba(83, 82, 79, 1)",
     fontWeight: 600,
