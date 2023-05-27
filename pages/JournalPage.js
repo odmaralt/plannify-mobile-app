@@ -14,7 +14,6 @@ import { Header } from "../components/Header";
 export const JournalPage = () => {
   const [loaded] = useFonts({
     Alfa: require("../assets/Alfa.ttf"),
-  
   });
   if (!loaded) {
     return null;
@@ -26,7 +25,7 @@ export const JournalPage = () => {
         style={styles.backgroundImage}
         source={require("../assets/Dot.png")}
       >
-        <Header />
+        <Header color="#DADCCF" />
         <Text style={styles.journalTitle}>Journal</Text>
         <View style={styles.container}>
           <View style={styles.div}>

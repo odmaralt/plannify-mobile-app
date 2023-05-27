@@ -18,7 +18,7 @@ export const LogsPage = () => {
         style={styles.backgroundImage}
         source={require("../assets/Dot.png")}
       >
-        <Header />
+        <Header color="#F2f2f2" />
 
         <View style={styles.top}>
           <Text style={styles.date}>Date</Text>
@@ -32,90 +32,11 @@ export const LogsPage = () => {
               <Text style={styles.date}>01/01/2023</Text>
               <Text style={styles.remaining}>4 cups</Text>
               <Text style={styles.remaining2}>4 hr 4 min</Text>
-
-              <Text style={styles.remaining3}>
-                Hello, today I was walking to
-              </Text>
-            </View>
-            <View style={styles.logDiv}>
-              <Text style={styles.date}>01/01/2023</Text>
-              <Text style={styles.remaining}>4 cups</Text>
-              <Text style={styles.remaining2}>4 hr 4 min</Text>
-              <Text style={styles.remaining3}>
-                Hello, today I was walking to my house and then
-              </Text>
-            </View>
-            <View style={styles.logDiv}>
-              <Text style={styles.date}>01/01/2023</Text>
-              <Text style={styles.remaining}>4 cups</Text>
-              <Text style={styles.remaining2}>4 hr 4 min</Text>
-              <Text style={styles.remaining3}>
-                Hello, today I was walking to my house and then
-              </Text>
-            </View>
-            <View style={styles.logDiv}>
-              <Text style={styles.date}>01/01/2023</Text>
-              <Text style={styles.remaining}>4 cups</Text>
-              <Text style={styles.remaining2}>4 hr 4 min</Text>
-              <Text style={styles.remaining3}>
-                Hello, today I was walking to my house and then
-              </Text>
-            </View>
-            <View style={styles.logDiv}>
-              <Text style={styles.date}>01/01/2023</Text>
-              <Text style={styles.remaining}>4 cups</Text>
-              <Text style={styles.remaining2}>4 hr 4 min</Text>
-              <Text style={styles.remaining3}>
-                Hello, today I was walking to my house and then
-              </Text>
-            </View>
-            <View style={styles.logDiv}>
-              <Text style={styles.date}>01/01/2023</Text>
-              <Text style={styles.remaining}>4 cups</Text>
-              <Text style={styles.remaining2}>4 hr 4 min</Text>
-              <Text style={styles.remaining3}>
-                Hello, today I was walking to my house and then
-              </Text>
-            </View>
-            <View style={styles.logDiv}>
-              <Text style={styles.date}>01/01/2023</Text>
-              <Text style={styles.remaining}>4 cups</Text>
-              <Text style={styles.remaining2}>4 hr 4 min</Text>
-              <Text style={styles.remaining3}>
-                Hello, today I was walking to my house and then
-              </Text>
-            </View>
-            <View style={styles.logDiv}>
-              <Text style={styles.date}>01/01/2023</Text>
-              <Text style={styles.remaining}>4 cups</Text>
-              <Text style={styles.remaining2}>4 hr 4 min</Text>
-              <Text style={styles.remaining3}>
-                Hello, today I was walking to my house and then
-              </Text>
-            </View>
-            <View style={styles.logDiv}>
-              <Text style={styles.date}>01/01/2023</Text>
-              <Text style={styles.remaining}>4 cups</Text>
-              <Text style={styles.remaining2}>4 hr 4 min</Text>
-              <Text style={styles.remaining3}>
-                Hello, today I was walking to my house and then
-              </Text>
-            </View>
-            <View style={styles.logDiv}>
-              <Text style={styles.date}>01/01/2023</Text>
-              <Text style={styles.remaining}>4 cups</Text>
-              <Text style={styles.remaining2}>4 hr 4 min</Text>
-              <Text style={styles.remaining3}>
-                Hello, today I was walking to my house and then
-              </Text>
-            </View>
-            <View style={styles.logDiv}>
-              <Text style={styles.date}>01/01/2023</Text>
-              <Text style={styles.remaining}>4 cups</Text>
-              <Text style={styles.remaining2}>4 hr 4 min</Text>
-              <Text style={styles.remaining3}>
-                Hello, today I was walking to my house and then
-              </Text>
+              <Pressable>
+                <Text style={styles.remaining3}>
+                  Hello, today I was walking to my house and then
+                </Text>
+              </Pressable>
             </View>
           </ScrollView>
         </View>
@@ -129,29 +50,29 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
   },
-  top: { flexDirection: "row", marginTop: 50, marginBottom: 20 },
-  logDiv: { flexDirection: "row", marginTop: 30 },
+
+  top: { flexDirection: "row", marginTop: 50, marginBottom: 50 },
+  logDiv: { flexDirection: "row", marginBottom: 50 },
 
   date: {
     position: "absolute",
     fontSize: 12,
     left: 20,
-    color: "#DADCCF",
+    color: "#f2f2f2",
     fontWeight: 600,
   },
   remaining: {
     position: "absolute",
     left: 110,
-    color: "#DADCCF",
+    color: "#f2f2f2",
     fontWeight: 600,
     fontSize: 12,
   },
   remaining2: {
     position: "absolute",
     left: 175,
-    color: "#DADCCF",
+    color: "#f2f2f2",
     fontSize: 12,
-
     fontWeight: 600,
   },
   remaining3: {
@@ -159,7 +80,8 @@ const styles = StyleSheet.create({
     fontSize: 12,
     left: 260,
     width: 120,
-    color: "#DADCCF",
+    color: "#f2f2f2",
     fontWeight: 600,
+    maxHeight: 30,
   },
 });

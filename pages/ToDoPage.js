@@ -29,7 +29,7 @@ export const ToDoPage = () => {
         style={styles.backgroundImage}
         source={require("../assets/DarkerDots.png")}
       >
-        <Header />
+        <Header color="#9A9E8C" />
         <Text style={styles.toDoTitle}>To-Do-List</Text>
         <View style={styles.scroll}>
           <ScrollView>
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
     fontFamily: "Alice",
     fontSize: 100,
     textAlign: "center",
-    color: "#A1A591" ,
+    color: "#A1A591",
   },
   scroll: { maxHeight: 340 },
   backgroundImage: {

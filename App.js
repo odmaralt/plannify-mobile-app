@@ -9,6 +9,7 @@ import { SignUpPage } from "./pages/SignUpPage";
 import { JournalPage } from "./pages/JournalPage";
 import { ToDoPage } from "./pages/ToDoPage";
 import { LogsPage } from "./pages/LogsPage";
+import { HomePage } from "./pages/HomePage";
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -20,7 +21,8 @@ export default function App() {
         {/* <Stack.Screen name="Sign Up Page" component={SignUpPage} /> */}
         {/* <Stack.Screen name="Journal Page" component={JournalPage} /> */}
         {/* <Stack.Screen name="To-Do Page" component={ToDoPage} /> */}
-        <Stack.Screen name="Logs Page" component={LogsPage} />
+        {/* <Stack.Screen name="Logs Page" component={LogsPage} /> */}
+        <Stack.Screen name="Home Page" component={HomePage} />
       </Stack.Navigator>
     </NavigationContainer>
   );
