@@ -57,13 +57,13 @@ const styles = StyleSheet.create({
   date: {
     position: "absolute",
     fontSize: 12,
-    left: 20,
+    left: 40,
     color: "#f2f2f2",
     fontWeight: 600,
   },
   sleep: {
     position: "absolute",
-    left: 110,
+    left: 120,
     color: "#f2f2f2",
     fontWeight: 600,
     fontSize: 12,

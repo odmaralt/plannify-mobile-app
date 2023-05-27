@@ -18,7 +18,7 @@ export const styles = (color) =>
     header: {
       flexDirection: "row",
       justifyContent: "space-evenly",
-      paddingTop: 45,
+      paddingTop: 84,
     },
     headerText: {
       fontFamily: "Arial",
@@ -45,7 +45,6 @@ export const styles = (color) =>
       fontWeight: 600,
       fontSize: 15,
       fontFamily: "Arial",
-
       paddingLeft: 30,
     },
   });
