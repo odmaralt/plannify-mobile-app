@@ -17,10 +17,13 @@ export const LandingPage = () => {
         source={require("../assets/Dot.png")}
       >
         <View style={styles.div}>
-          <Image source={require("../journalIcon.png")} style={styles.image} />
+          <Image
+            source={require("../assets/journalIcon.png")}
+            style={styles.image}
+          />
         </View>
 
-        <Text style={styles.text1}>Plannify</Text>
+        <Text style={styles.plannifyText}>Plannify</Text>
         <Pressable style={styles.button}>
           <Text style={styles.buttonText}>LOGIN</Text>
         </Pressable>
@@ -65,7 +68,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  text1: {
+  plannifyText: {
     color: "#EDF0F3",
     fontWeight: "800",
     textAlign: "center",
