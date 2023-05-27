@@ -81,6 +81,8 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: "#FFFFFF",
+    fontFamily: "Arial",
+
     fontWeight: 600,
   },
   inputText: {

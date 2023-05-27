@@ -17,7 +17,10 @@ export const LandingPage = () => {
         source={require("../assets/Dot.png")}
       >
         <View style={styles.div}>
-          <Image source={require("../assets/journalIcon.png")} style={styles.image} />
+          <Image
+            source={require("../assets/journalIcon.png")}
+            style={styles.image}
+          />
         </View>
 
         <Text style={styles.text1}>Plannify</Text>
