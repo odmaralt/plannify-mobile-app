@@ -27,7 +27,6 @@ const styles = StyleSheet.create({
   headerTextRight: {
     color: "#DADCCF",
     fontFamily: "Arial",
-
     fontWeight: 700,
     fontSize: 18,
     paddingLeft: 30,
@@ -35,7 +34,6 @@ const styles = StyleSheet.create({
   headerTextLeft: {
     color: "#DADCCF",
     fontFamily: "Arial",
-
     fontWeight: 600,
     fontSize: 15,
     paddingRight: 30,

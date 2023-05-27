@@ -7,9 +7,18 @@ import {
   Pressable,
   TextInput,
 } from "react-native";
+import { useFonts } from "expo-font";
+
 import { Header } from "../components/Header";
 
 export const JournalPage = () => {
+  const [loaded] = useFonts({
+    Alfa: require("../assets/Alfa.ttf"),
+  
+  });
+  if (!loaded) {
+    return null;
+  }
   return (
     <View style={styles.mainDiv}>
       <ImageBackground
@@ -52,7 +61,7 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   button1: {
-    backgroundColor: "#606353",
+    backgroundColor: "#676A59",
     paddingTop: 10,
     width: 100,
     borderRadius: 5,
@@ -65,7 +74,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     width: 160,
     paddingBottom: 10,
-    backgroundColor: "#606353",
+    backgroundColor: "#676A59",
   },
   buttonText: {
     color: "#BCC2A5",
@@ -76,11 +85,10 @@ const styles = StyleSheet.create({
   },
   input: { paddingTop: 34, paddingLeft: 26 },
   journalTitle: {
-    color: "#606353",
-    fontSize: 48,
-    fontWeight: 800,
-    letterSpacing: -2,
-    marginBottom: -5,
+    color: "#676A59",
+    fontSize: 45,
+    fontFamily: "Alfa",
+    marginBottom: -8,
     paddingLeft: 52,
     paddingTop: 45,
   },
