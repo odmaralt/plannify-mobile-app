@@ -27,6 +27,9 @@ export const ToDoPage = () => {
   if (!loaded) {
     return null;
   }
+  const openModal = () => {
+    setModalVisible(true);
+  };
 
   return (
     <View style={styles.mainDiv}>
@@ -111,7 +114,7 @@ export const ToDoPage = () => {
             </View>
           </ScrollView>
         </View>
-        <Pressable onPress={() => setModalVisible(true)} style={styles.button}>
+        <Pressable onPress={() => openModal()} style={styles.button}>
           <Text style={styles.buttonText}>+</Text>
         </Pressable>
         <CreateTaskModal

@@ -9,15 +9,22 @@ import {
 } from "react-native";
 
 export const CreateTaskModal = (props) => {
+  const { setModalVisible, modalVisible } = props;
+  const closeModal = () => {
+    Alert.alert("Modal has been closed.");
+    setModalVisible(!modalVisible);
+  };
+  const openModal = () => {
+    setModalVisible(!modalVisible);
+  };
   return (
     <View>
       <Modal
         animationType="fade"
         transparent={true}
-        visible={props.modalVisible}
+        visible={modalVisible}
         onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
-          props.setModalVisible(!props.modalVisible);
+          closeModal();
         }}
       >
         <View style={styles.modalDiv}>
@@ -28,10 +35,7 @@ export const CreateTaskModal = (props) => {
               <Pressable style={styles.button}>
                 <Text style={styles.buttonText}>Add</Text>
               </Pressable>
-              <Pressable
-                style={styles.button}
-                onPress={() => props.setModalVisible(!props.modalVisible)}
-              >
+              <Pressable style={styles.button} onPress={() => openModal()}>
                 <Text style={styles.buttonText}>Cancel</Text>
               </Pressable>
             </View>
