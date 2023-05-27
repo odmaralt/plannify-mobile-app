@@ -1,19 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   ImageBackground,
   StyleSheet,
   Text,
   View,
+  Modal,
   Pressable,
   ScrollView,
+  TextInput,
 } from "react-native";
 
 import { useFonts } from "expo-font";
 
 import { Header } from "../components/Header";
 import CheckBox from "@react-native-community/checkbox";
+import { CreateTaskModal } from "../components/CreateTaskModal";
 
 export const ToDoPage = () => {
+  const [modalVisible, setModalVisible] = useState(false);
+
   const [loaded] = useFonts({
     Alfa: require("../assets/Alfa.ttf"),
     Mulish1: require("../assets/Mulish1.ttf"),
@@ -22,6 +27,10 @@ export const ToDoPage = () => {
   if (!loaded) {
     return null;
   }
+  const openModal = () => {
+    setModalVisible(true);
+  };
+
   return (
     <View style={styles.mainDiv}>
       <ImageBackground
@@ -105,9 +114,13 @@ export const ToDoPage = () => {
             </View>
           </ScrollView>
         </View>
-        <Pressable style={styles.button}>
+        <Pressable onPress={() => openModal()} style={styles.button}>
           <Text style={styles.buttonText}>+</Text>
         </Pressable>
+        <CreateTaskModal
+          setModalVisible={setModalVisible}
+          modalVisible={modalVisible}
+        />
       </ImageBackground>
     </View>
   );
