@@ -24,8 +24,8 @@ export default function App() {
         {/* <Stack.Screen name="Login Page" component={LoginPage} /> */}
         {/* <Stack.Screen name="Sign Up Page" component={SignUpPage} /> */}
         {/* <Stack.Screen name="Journal Page" component={JournalPage} /> */}
-        <Stack.Screen name="To-Do Page" component={ToDoPage} />
-        {/* <Stack.Screen name="Logs Page" component={LogsPage} /> */}
+        {/* <Stack.Screen name="To-Do Page" component={ToDoPage} /> */}
+        <Stack.Screen name="Logs Page" component={LogsPage} />
         {/* <Stack.Screen name="Home Page" component={HomePage} /> */}
       </Stack.Navigator>
     </NavigationContainer>

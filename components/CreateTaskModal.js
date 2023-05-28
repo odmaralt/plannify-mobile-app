@@ -14,9 +14,6 @@ export const CreateTaskModal = (props) => {
     Alert.alert("Modal has been closed.");
     setModalVisible(!modalVisible);
   };
-  const openModal = () => {
-    setModalVisible(!modalVisible);
-  };
   return (
     <View>
       <Modal
@@ -35,7 +32,7 @@ export const CreateTaskModal = (props) => {
               <Pressable style={styles.button}>
                 <Text style={styles.buttonText}>Add</Text>
               </Pressable>
-              <Pressable style={styles.button} onPress={() => openModal()}>
+              <Pressable style={styles.button} onPress={() => closeModal()}>
                 <Text style={styles.buttonText}>Cancel</Text>
               </Pressable>
             </View>

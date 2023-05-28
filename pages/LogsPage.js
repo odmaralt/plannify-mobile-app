@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   ImageBackground,
   Image,
@@ -9,8 +9,14 @@ import {
   ScrollView,
 } from "react-native";
 import { Header } from "../components/Header";
+import { ViewJournalModal } from "../components/ViewJournalModal";
 
 export const LogsPage = () => {
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const openModal = () => {
+    setModalVisible(true);
+  };
   return (
     <View style={styles.mainDiv}>
       <ImageBackground
@@ -32,12 +38,16 @@ export const LogsPage = () => {
               <Text style={styles.date}>01/01/2023</Text>
               <Text style={styles.sleep}>4 cups</Text>
               <Text style={styles.water}>4 hr 4 min</Text>
-              <Pressable>
+              <Pressable onPress={() => openModal()}>
                 <Text style={styles.journal}>
                   Hello, today I was walking to my house and then
                 </Text>
               </Pressable>
             </View>
+            <ViewJournalModal
+              setModalVisible={setModalVisible}
+              modalVisible={modalVisible}
+            />
           </ScrollView>
         </View>
       </ImageBackground>
