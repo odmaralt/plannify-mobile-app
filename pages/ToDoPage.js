@@ -16,7 +16,7 @@ import { Header } from "../components/Header";
 import CheckBox from "@react-native-community/checkbox";
 import { CreateTaskModal } from "../components/CreateTaskModal";
 
-export const ToDoPage = () => {
+export const ToDoPage = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
 
   const [loaded] = useFonts({
@@ -30,6 +30,7 @@ export const ToDoPage = () => {
   const openModal = () => {
     setModalVisible(true);
   };
+  const { navigation } = props;
 
   return (
     <View style={styles.mainDiv}>
@@ -38,7 +39,7 @@ export const ToDoPage = () => {
         style={styles.backgroundImage}
         source={require("../assets/DarkerDots.png")}
       >
-        <Header color="#9A9E8C" />
+        <Header navigation={navigation} color="#9A9E8C" />
         <Text style={styles.toDoTitle}>To-Do-List</Text>
         <View style={styles.scroll}>
           <ScrollView>

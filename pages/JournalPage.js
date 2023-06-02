@@ -11,13 +11,15 @@ import { useFonts } from "expo-font";
 
 import { Header } from "../components/Header";
 
-export const JournalPage = () => {
+export const JournalPage = (props) => {
   const [loaded] = useFonts({
     Alfa: require("../assets/Alfa.ttf"),
   });
   if (!loaded) {
     return null;
   }
+  const { navigation } = props;
+
   return (
     <View style={styles.mainDiv}>
       <ImageBackground
@@ -25,7 +27,7 @@ export const JournalPage = () => {
         style={styles.backgroundImage}
         source={require("../assets/Dot.png")}
       >
-        <Header color="#DADCCF" />
+        <Header color="#DADCCF" navigation={navigation} />
         <Text style={styles.journalTitle}>Journal</Text>
         <View style={styles.container}>
           <View style={styles.div}>

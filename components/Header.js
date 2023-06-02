@@ -2,14 +2,42 @@ import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 
 export const Header = (props) => {
-  const { color } = props;
+  const { color, navigation } = props;
+  const navigateToJournalPage = () => {
+    navigation.navigate("Journal Page");
+  };
+  const navigateToToDoPage = () => {
+    navigation.navigate("To-Do Page");
+  };
+  const navigateToLogsPage = () => {
+    navigation.navigate("Logs Page");
+  };
+  const navigateToHomePage = () => {
+    navigation.navigate("Home Page");
+  };
+  const navigateToLogInPage = () => {
+    navigation.navigate("Login Page");
+  };
   return (
     <View style={styles(color).header}>
-      <Text style={styles(color).headerTextRight}>✮✮✮</Text>
-      <Text style={styles(color).headerTextSpace}>Journal</Text>
-      <Text style={styles(color).headerText}>To-Do</Text>
-      <Text style={styles(color).headerText}>Logs</Text>
-      <Text style={styles(color).headerTextLeft}>Sign out</Text>
+      <Text onPress={navigateToHomePage} style={styles(color).headerTextRight}>
+        ✮✮✮
+      </Text>
+      <Text
+        onPress={navigateToJournalPage}
+        style={styles(color).headerTextSpace}
+      >
+        Journal
+      </Text>
+      <Text onPress={navigateToToDoPage} style={styles(color).headerText}>
+        To-Do
+      </Text>
+      <Text onPress={navigateToLogsPage} style={styles(color).headerText}>
+        Logs
+      </Text>
+      <Text onPress={navigateToLogInPage} style={styles(color).headerTextLeft}>
+        Sign out
+      </Text>
     </View>
   );
 };
