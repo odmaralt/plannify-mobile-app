@@ -1,36 +1,67 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   ImageBackground,
   StyleSheet,
   Text,
   View,
-  Modal,
   Pressable,
   ScrollView,
-  TextInput,
 } from "react-native";
 
 import { useFonts } from "expo-font";
-
+import axios from "react-native-axios";
 import { Header } from "../components/Header";
 import CheckBox from "@react-native-community/checkbox";
 import { CreateTaskModal } from "../components/CreateTaskModal";
+import { SavedModal } from "../components/SavedModal";
+import { useUserProvider } from "../provider/UserProvider";
+import { deleteTask } from "../api/task/DeleteTask";
+import { getTasks } from "../api/task/GetTasks";
 
 export const ToDoPage = (props) => {
+  const { navigation } = props;
+
   const [modalVisible, setModalVisible] = useState(false);
+  const [data, setData] = useState([]);
+  const [savedModalVisible, setSavedModalVisible] = useState(false);
 
   const [loaded] = useFonts({
     Alfa: require("../assets/Alfa.ttf"),
     Mulish1: require("../assets/Mulish1.ttf"),
     Alice: require("../assets/Alice-Regular.ttf"),
   });
-  if (!loaded) {
-    return null;
-  }
+
+  const { userId } = useUserProvider();
+
+  useEffect(() => {
+    fetchTasks(userId._j);
+  }, []);
+
   const openModal = () => {
     setModalVisible(true);
   };
-  const { navigation } = props;
+  const openSavedModal = () => {
+    setSavedModalVisible(true);
+  };
+  const fetchTasks = async (id) => {
+    await getTasks(id)
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const handleDelete = async (id) => {
+    await deleteTask(id)
+      .then((response) => {
+        fetchTasks(userId._j);
+      })
+      .catch((err) => console.log(err));
+  };
+  if (!loaded) {
+    return null;
+  }
 
   return (
     <View style={styles.mainDiv}>
@@ -43,76 +74,26 @@ export const ToDoPage = (props) => {
         <Text style={styles.toDoTitle}>To-Do-List</Text>
         <View style={styles.scroll}>
           <ScrollView>
-            <View style={styles.taskDiv}>
-              <CheckBox
-                lineWidth={2}
-                onFillColor="#626375"
-                onCheckColor="white"
-                boxType="square"
-                style={styles.checkbox}
-              />
-              <Text style={styles.task}>Task 1</Text>
-            </View>
-            <View style={styles.taskDiv}>
-              <CheckBox
-                lineWidth={2}
-                onFillColor="#626375"
-                onCheckColor="white"
-                boxType="square"
-                style={styles.checkbox}
-              />
-              <Text style={styles.task}>Task 2</Text>
-            </View>
-            <View style={styles.taskDiv}>
-              <CheckBox
-                lineWidth={2}
-                onFillColor="#626375"
-                onCheckColor="white"
-                boxType="square"
-                style={styles.checkbox}
-              />
-              <Text style={styles.task}>Task 3</Text>
-            </View>
-            <View style={styles.taskDiv}>
-              <CheckBox
-                lineWidth={2}
-                onFillColor="#626375"
-                onCheckColor="white"
-                boxType="square"
-                style={styles.checkbox}
-              />
-              <Text style={styles.task}>Task 4</Text>
-            </View>
-            <View style={styles.taskDiv}>
-              <CheckBox
-                lineWidth={2}
-                onFillColor="#626375"
-                onCheckColor="white"
-                boxType="square"
-                style={styles.checkbox}
-              />
-              <Text style={styles.task}>Task 4</Text>
-            </View>
-            <View style={styles.taskDiv}>
-              <CheckBox
-                lineWidth={2}
-                onFillColor="#626375"
-                onCheckColor="white"
-                boxType="square"
-                style={styles.checkbox}
-              />
-              <Text style={styles.task}>Task 4</Text>
-            </View>
-            <View style={styles.taskDiv}>
-              <CheckBox
-                lineWidth={2}
-                onFillColor="#626375"
-                onCheckColor="white"
-                boxType="square"
-                style={styles.checkbox}
-              />
-              <Text style={styles.task}>Task 5</Text>
-            </View>
+            {data.length === 0 && (
+              <Text style={styles.noTasks}>• You have no tasks.</Text>
+            )}
+            {data?.map((task) => {
+              return (
+                <View key={task._id} style={styles.taskDiv}>
+                  <Pressable onPress={() => handleDelete(task._id)}>
+                    <CheckBox
+                      lineWidth={2}
+                      onFillColor="#626375"
+                      onCheckColor="white"
+                      boxType="square"
+                      style={styles.checkbox}
+                    />
+                  </Pressable>
+
+                  <Text style={styles.task}>{task.task}</Text>
+                </View>
+              );
+            })}
           </ScrollView>
         </View>
         <Pressable onPress={() => openModal()} style={styles.button}>
@@ -121,6 +102,13 @@ export const ToDoPage = (props) => {
         <CreateTaskModal
           setModalVisible={setModalVisible}
           modalVisible={modalVisible}
+          openSavedModal={openSavedModal}
+          fetchTasks={fetchTasks}
+        />
+        <SavedModal
+          text="You have successfully saved your task."
+          setModalVisible={setSavedModalVisible}
+          modalVisible={savedModalVisible}
         />
       </ImageBackground>
     </View>
@@ -152,6 +140,14 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: "#626375",
     paddingLeft: 5,
+    fontFamily: "Mulish1",
+  },
+  noTasks: {
+    fontSize: 24,
+    color: "#626375",
+    paddingLeft: 5,
+    marginLeft: 60,
+    paddingTop: 18,
     fontFamily: "Mulish1",
   },
   mainDiv: {

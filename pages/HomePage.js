@@ -6,6 +6,7 @@ import {
   View,
   ScrollView,
   TextInput,
+  Pressable,
 } from "react-native";
 import { Header } from "../components/Header";
 import { useFonts } from "expo-font";
@@ -15,16 +16,21 @@ import Clock from "../components/Clock";
 import axios from "react-native-axios";
 import { useUserProvider } from "../provider/UserProvider";
 import { SavedModal } from "../components/SavedModal";
-import { createSleepValues } from "../api/CreateSleep";
-import { createWaterValues } from "../api/CreateWater";
-import { updateSleep } from "../api/UpdateSleep";
-import { updateWater } from "../api/UpdateWater";
+import { createSleepValues } from "../api/sleep/CreateSleep";
+import { createWaterValues } from "../api/water/CreateWater";
+import { updateSleep } from "../api/sleep/UpdateSleep";
+import { updateWater } from "../api/water/UpdateWater";
+import { deleteTask } from "../api/task/DeleteTask";
+import { getTasks } from "../api/task/GetTasks";
+import { getSleep } from "../api/sleep/GetSleep";
+import { getWater } from "../api/water/GetWater";
 
 export const HomePage = (props) => {
   const [dateState, setDateState] = useState(new Date());
+  const [data, setData] = useState([]);
   const [water, setWater] = useState("");
   const [sleep, setSleep] = useState("");
-  const { userId } = useUserProvider();
+  const { userId, token } = useUserProvider();
   const [sleepData, setSleepData] = useState([]);
   const [waterData, setWaterData] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
@@ -32,37 +38,39 @@ export const HomePage = (props) => {
   const [loaded] = useFonts({
     Mulish1: require("../assets/Mulish1.ttf"),
   });
+
   const openSavedModal = () => {
     setModalVisible(true);
   };
-  const getSleep = async () => {
-    await axios
-      .get(`https://plannify-ny7u.onrender.com/${userId._j}/sleeps`)
+  const fetchSleep = async (id) => {
+    await getSleep(id)
       .then((response) => {
         setSleepData(response.data);
       })
       .catch((err) => console.log(err));
   };
-  const getWater = async () => {
-    await axios
-      .get(`https://plannify-ny7u.onrender.com/${userId._j}/waters`)
+  const fetchWater = async (id) => {
+    await getWater(id)
       .then((response) => {
         setWaterData(response.data);
       })
       .catch((err) => console.log(err));
   };
+
+  const getAllData = async () => {
+    await fetchSleep(userId._j);
+    await fetchWater(userId._j);
+    await fetchTasks(userId._j);
+  };
   useEffect(() => {
     setInterval(() => setDateState(new Date()), 30000);
+    getAllData();
   }, []);
-  useEffect(() => {
-    getSleep();
-  }, []);
-  useEffect(() => {
-    getWater();
-  }, []);
+
   const handleSleepChange = (value, name) => {
     setSleep({ ...sleep, [name]: value, ownerId: userId._j });
   };
+
   const handleWaterChange = (value, name) => {
     setWater({ ...water, [name]: value, ownerId: userId._j });
   };
@@ -74,6 +82,9 @@ export const HomePage = (props) => {
     };
     if (!values.minutesSlept) {
       values.minutesSlept = "0";
+    }
+    if (!values.hoursSlept) {
+      values.hoursSlept = "0";
     }
     if (sleepData.length <= 0) {
       if (!values.hoursSlept) {
@@ -94,6 +105,7 @@ export const HomePage = (props) => {
       sleepData
     ).then(openSavedModal());
   };
+
   const handleSaveWaterButton = async (e) => {
     e.preventDefault();
     const values = {
@@ -121,9 +133,29 @@ export const HomePage = (props) => {
       waterData
     ).then(openSavedModal());
   };
+
+  const fetchTasks = async (id) => {
+    await getTasks(id)
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handleDelete = async (id) => {
+    await deleteTask(id)
+      .then((response) => {
+        fetchTasks(userId._j);
+      })
+      .catch((err) => console.log(err));
+  };
+
   if (!loaded) {
     return null;
   }
+
   return (
     <View style={styles.mainDiv}>
       <ImageBackground
@@ -159,36 +191,26 @@ export const HomePage = (props) => {
           <Text style={styles.toDoText}>To-Do List</Text>
           <View style={styles.scrollDiv}>
             <ScrollView>
-              <View style={styles.taskDiv}>
-                <CheckBox
-                  lineWidth={2}
-                  onFillColor="#626375"
-                  onCheckColor="white"
-                  boxType="square"
-                  style={styles.checkbox}
-                />
-                <Text style={styles.task}>Task 1</Text>
-              </View>
-              <View style={styles.taskDiv}>
-                <CheckBox
-                  lineWidth={2}
-                  onFillColor="#626375"
-                  onCheckColor="white"
-                  boxType="square"
-                  style={styles.checkbox}
-                />
-                <Text style={styles.task}>Task 2</Text>
-              </View>
-              <View style={styles.taskDiv}>
-                <CheckBox
-                  lineWidth={2}
-                  onFillColor="#626375"
-                  onCheckColor="white"
-                  boxType="square"
-                  style={styles.checkbox}
-                />
-                <Text style={styles.task}>Task 3</Text>
-              </View>
+              {data.length === 0 && (
+                <Text style={styles.noTask}>• You have no tasks.</Text>
+              )}
+              {data?.map((task) => {
+                return (
+                  <View key={task._id} style={styles.taskDiv}>
+                    <Pressable onPress={() => handleDelete(task._id)}>
+                      <CheckBox
+                        lineWidth={2}
+                        onFillColor="#626375"
+                        onCheckColor="white"
+                        boxType="square"
+                        style={styles.checkbox}
+                      />
+                    </Pressable>
+
+                    <Text style={styles.task}>{task.task}</Text>
+                  </View>
+                );
+              })}
             </ScrollView>
           </View>
         </View>
@@ -356,7 +378,7 @@ const styles = StyleSheet.create({
   },
   div: {
     position: "absolute",
-    right: 40,
+    right: 30,
     top: 180,
   },
   task: {
@@ -364,6 +386,12 @@ const styles = StyleSheet.create({
     color: "#3B3C49",
     fontFamily: "Mulish1",
     marginLeft: -4,
+  },
+  noTask: {
+    fontSize: 15,
+    color: "#3B3C49",
+    fontFamily: "Mulish1",
+    marginLeft: 0,
   },
   checkbox: {
     transform: [{ scaleX: 0.6 }, { scaleY: 0.6 }],
