@@ -13,7 +13,6 @@ import { useFonts } from "expo-font";
 import CheckBox from "@react-native-community/checkbox";
 import Water from "../components/Water";
 import Clock from "../components/Clock";
-import axios from "react-native-axios";
 import { useUserProvider } from "../provider/UserProvider";
 import { SavedModal } from "../components/SavedModal";
 import { createSleepValues } from "../api/sleep/CreateSleep";
@@ -24,6 +23,7 @@ import { deleteTask } from "../api/task/DeleteTask";
 import { getTasks } from "../api/task/GetTasks";
 import { getSleep } from "../api/sleep/GetSleep";
 import { getWater } from "../api/water/GetWater";
+import { createJournal } from "../api/journal/CreateJournal";
 
 export const HomePage = (props) => {
   const [dateState, setDateState] = useState(new Date());
@@ -66,7 +66,29 @@ export const HomePage = (props) => {
     setInterval(() => setDateState(new Date()), 30000);
     getAllData();
   }, []);
+  const restartData = async (id) => {
+    await createSleepValues({
+      hoursSlept: "0",
+      minutesSlept: "0",
+      ownerId: id,
+    });
+    await createWaterValues({ cupsDrank: "0", ownerId: id, cupsTotal: "0" });
+    await createJournal({ journal: "", ownerId: id });
+  };
 
+  // useEffect(() => {
+  //   if (
+  //     dateState.toLocaleString("en-US", {
+  //       hour: "numeric",
+  //       minute: "numeric",
+  //       second: "numeric",
+  //       hour12: true,
+  //     }) === "6:38:00 PM"
+  //   ) {
+  //     restartData(userId._j);
+  //     //needs to reload screen
+  //   }
+  // }, [dateState]);
   const handleSleepChange = (value, name) => {
     setSleep({ ...sleep, [name]: value, ownerId: userId._j });
   };
@@ -90,42 +112,23 @@ export const HomePage = (props) => {
       if (!values.hoursSlept) {
         setError(true);
       }
-
-      await createSleepValues(values)
-        .then(async (response) => {
-          openSavedModal();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+    } else {
+      await updateSleep(
+        sleepData[sleepData.length - 1]?._id,
+        sleep,
+        sleepData
+      ).then(openSavedModal());
     }
-    await updateSleep(
-      sleepData[sleepData.length - 1]?._id,
-      sleep,
-      sleepData
-    ).then(openSavedModal());
   };
-
   const handleSaveWaterButton = async (e) => {
     e.preventDefault();
     const values = {
       ...water,
     };
     if (waterData.length <= 0) {
-      if (!values.cupsDrank) {
-        setError(true);
-      }
       if (!values.cupsTotal) {
         values.cupsTotal = "8";
       }
-
-      await createWaterValues(values)
-        .then(async (response) => {
-          openSavedModal();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
     }
     await updateWater(
       waterData[waterData.length - 1]?._id,
@@ -156,6 +159,7 @@ export const HomePage = (props) => {
     return null;
   }
 
+ 
   return (
     <View style={styles.mainDiv}>
       <ImageBackground

@@ -74,25 +74,14 @@ export const JournalPage = (props) => {
 
   const handleSaveJournalButton = async (e) => {
     e.preventDefault();
-    if (data == undefined || data == null || data.length < 1) {
-      await createJournal({
-        ...formValues,
+
+    await updateJournal(message, idData)
+      .then((response) => {
+        openSavedModal();
       })
-        .then((response) => {
-          openSavedModal();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else {
-      await updateJournal(message, idData)
-        .then((response) => {
-          openSavedModal();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   if (!loaded) {
@@ -115,11 +104,13 @@ export const JournalPage = (props) => {
                   handleJournalChange(newText);
                 }}
                 placeholder={data}
+                multiline={true}
                 style={styles.input}
               />
             )}
             {!data && (
               <TextInput
+                multiline={true}
                 onChangeText={(newText) => {
                   handleJournalChange(newText);
                 }}
@@ -183,10 +174,9 @@ const styles = StyleSheet.create({
     color: "#BCC2A5",
     fontWeight: 600,
     fontFamily: "Arial",
-
     fontSize: 16,
   },
-  input: { paddingTop: 34, paddingLeft: 26 },
+  input: { paddingTop: 34, paddingLeft: 26, paddingRight: 26, },
   journalTitle: {
     color: "#676A59",
     fontSize: 45,

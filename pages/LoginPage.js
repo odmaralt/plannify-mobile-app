@@ -19,6 +19,7 @@ export const LoginPage = (props) => {
     try {
       const jsonValue = JSON.stringify(value);
       await AsyncStorage.setItem(name, jsonValue);
+
     } catch (e) {
       console.log(e);
     }

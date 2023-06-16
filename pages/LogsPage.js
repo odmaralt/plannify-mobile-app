@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   ImageBackground,
   StyleSheet,
@@ -7,17 +7,38 @@ import {
   Pressable,
   ScrollView,
 } from "react-native";
+import { getJournal } from "../api/journal/GetJournal";
+import { Logs } from "../api/logs/Logs";
+import { getSleep } from "../api/sleep/GetSleep";
+import { getWater } from "../api/water/GetWater";
 import { Header } from "../components/Header";
 import { ViewJournalModal } from "../components/ViewJournalModal";
+import { useUserProvider } from "../provider/UserProvider";
 
 export const LogsPage = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
+  const { navigation } = props;
+  const { userId } = useUserProvider();
+  const [data, setData] = useState([]);
+  const fetchData = async (id) => {
+    const response = await Logs(id);
+    return response;
+  };
+
+  useEffect(() => {
+    fetchData(userId._j)
+      .then((response) => {
+        setData(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   const openModal = () => {
     setModalVisible(true);
   };
-  const { navigation } = props;
-
+  
   return (
     <View style={styles.mainDiv}>
       <ImageBackground
@@ -29,26 +50,38 @@ export const LogsPage = (props) => {
 
         <View style={styles.top}>
           <Text style={styles.date}>Date</Text>
-          <Text style={styles.sleep}>Sleep</Text>
           <Text style={styles.water}>Water</Text>
+          <Text style={styles.sleep}>Sleep</Text>
           <Text style={styles.journal}>Journal</Text>
         </View>
         <View style={{ height: 450 }}>
           <ScrollView>
-            <View style={styles.logDiv}>
-              <Text style={styles.date}>01/01/2023</Text>
-              <Text style={styles.sleep}>4 cups</Text>
-              <Text style={styles.water}>4 hr 4 min</Text>
-              <Pressable onPress={() => openModal()}>
-                <Text style={styles.journal}>
-                  Hello, today I was walking to my house and then
-                </Text>
-              </Pressable>
-            </View>
-            <ViewJournalModal
-              setModalVisible={setModalVisible}
-              modalVisible={modalVisible}
-            />
+            {data?.map((data) => {
+              return (
+                <View key={data.date}>
+                  <View style={styles.logDiv}>
+                    <Text style={styles.date}>{data?.date}</Text>
+                    <Text style={styles.water || "0"}>
+                      {data?.sleep.hoursSlept || "0"} hr{" "}
+                      {data?.sleep.minutesSlept || "0"} min
+                    </Text>
+                    <Text style={styles.sleep}>
+                      {data?.water.cupsDrank || "0"} cups
+                    </Text>
+                    <Pressable onPress={() => openModal()}>
+                      <Text style={styles.journal}>
+                        {data?.journal || "N/A"}
+                      </Text>
+                    </Pressable>
+                  </View>
+                  <ViewJournalModal
+                    text={data.journal}
+                    setModalVisible={setModalVisible}
+                    modalVisible={modalVisible}
+                  />
+                </View>
+              );
+            })}
           </ScrollView>
         </View>
       </ImageBackground>
@@ -74,14 +107,14 @@ const styles = StyleSheet.create({
   },
   sleep: {
     position: "absolute",
-    left: 120,
+    left: 210,
     color: "#f2f2f2",
     fontWeight: 600,
     fontSize: 12,
   },
   water: {
     position: "absolute",
-    left: 175,
+    left: 130,
     color: "#f2f2f2",
     fontSize: 12,
     fontWeight: 600,
@@ -89,9 +122,10 @@ const styles = StyleSheet.create({
   journal: {
     position: "absolute",
     fontSize: 12,
-    left: 260,
+    left: 270,
     width: 120,
     color: "#f2f2f2",
+    paddingRight: 40,
     fontWeight: 600,
     maxHeight: 30,
   },
