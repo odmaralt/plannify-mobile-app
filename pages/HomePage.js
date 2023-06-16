@@ -76,19 +76,6 @@ export const HomePage = (props) => {
     await createJournal({ journal: "", ownerId: id });
   };
 
-  // useEffect(() => {
-  //   if (
-  //     dateState.toLocaleString("en-US", {
-  //       hour: "numeric",
-  //       minute: "numeric",
-  //       second: "numeric",
-  //       hour12: true,
-  //     }) === "6:38:00 PM"
-  //   ) {
-  //     restartData(userId._j);
-  //     //needs to reload screen
-  //   }
-  // }, [dateState]);
   const handleSleepChange = (value, name) => {
     setSleep({ ...sleep, [name]: value, ownerId: userId._j });
   };
