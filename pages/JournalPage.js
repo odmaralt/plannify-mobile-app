@@ -71,17 +71,27 @@ export const JournalPage = (props) => {
       ownerId: userId._j,
     }));
   };
-
   const handleSaveJournalButton = async (e) => {
     e.preventDefault();
-
-    await updateJournal(message, idData)
-      .then((response) => {
-        openSavedModal();
+    if (data == undefined || data == null || data.length < 1) {
+      await createJournal({
+        ...formValues,
       })
-      .catch((err) => {
-        console.log(err);
-      });
+        .then((response) => {
+          openSavedModal();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      await updateJournal(message, idData)
+        .then((response) => {
+          openSavedModal();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   if (!loaded) {
@@ -176,7 +186,7 @@ const styles = StyleSheet.create({
     fontFamily: "Arial",
     fontSize: 16,
   },
-  input: { paddingTop: 34, paddingLeft: 26, paddingRight: 26, },
+  input: { paddingTop: 34, paddingLeft: 26, paddingRight: 26 },
   journalTitle: {
     color: "#676A59",
     fontSize: 45,

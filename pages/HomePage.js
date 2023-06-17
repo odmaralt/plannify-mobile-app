@@ -99,6 +99,13 @@ export const HomePage = (props) => {
       if (!values.hoursSlept) {
         setError(true);
       }
+      await createSleepValues(values)
+        .then(async (response) => {
+          openSavedModal();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     } else {
       await updateSleep(
         sleepData[sleepData.length - 1]?._id,
@@ -113,17 +120,28 @@ export const HomePage = (props) => {
       ...water,
     };
     if (waterData.length <= 0) {
+      if (!values.cupsDrank) {
+        setError(true);
+      }
       if (!values.cupsTotal) {
         values.cupsTotal = "8";
       }
-    }
-    await updateWater(
-      waterData[waterData.length - 1]?._id,
-      water,
-      waterData
-    ).then(openSavedModal());
-  };
 
+      await createWaterValues(values)
+        .then(async (response) => {
+          openSavedModal();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      await updateWater(
+        waterData[waterData.length - 1]?._id,
+        water,
+        waterData
+      ).then(openSavedModal());
+    }
+  };
   const fetchTasks = async (id) => {
     await getTasks(id)
       .then((response) => {
@@ -146,7 +164,6 @@ export const HomePage = (props) => {
     return null;
   }
 
- 
   return (
     <View style={styles.mainDiv}>
       <ImageBackground

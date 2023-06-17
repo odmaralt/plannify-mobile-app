@@ -19,7 +19,6 @@ export const LoginPage = (props) => {
     try {
       const jsonValue = JSON.stringify(value);
       await AsyncStorage.setItem(name, jsonValue);
-
     } catch (e) {
       console.log(e);
     }
@@ -61,6 +60,17 @@ export const LoginPage = (props) => {
           {
             email: formValues.email,
             password: formValues.password,
+            lastLogin:
+              new Date().getMonth() +
+              1 +
+              "-" +
+              new Date().getDate() +
+              "-" +
+              new Date().getFullYear() +
+              " " +
+              new Date().getHours() +
+              ":" +
+              new Date().getMinutes(),
           },
           {
             headers: {

@@ -17,6 +17,7 @@ import { useUserProvider } from "../provider/UserProvider";
 
 export const LogsPage = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
+  const [selectedText, setSelectedText] = useState("");
   const { navigation } = props;
   const { userId } = useUserProvider();
   const [data, setData] = useState([]);
@@ -35,10 +36,11 @@ export const LogsPage = (props) => {
       });
   }, []);
 
-  const openModal = () => {
+  const openModal = (text) => {
+    setSelectedText(text);
     setModalVisible(true);
   };
-  
+
   return (
     <View style={styles.mainDiv}>
       <ImageBackground
@@ -68,20 +70,20 @@ export const LogsPage = (props) => {
                     <Text style={styles.sleep}>
                       {data?.water.cupsDrank || "0"} cups
                     </Text>
-                    <Pressable onPress={() => openModal()}>
+                    <Pressable onPress={() => openModal(data?.journal)}>
                       <Text style={styles.journal}>
                         {data?.journal || "N/A"}
                       </Text>
                     </Pressable>
                   </View>
-                  <ViewJournalModal
-                    text={data.journal}
-                    setModalVisible={setModalVisible}
-                    modalVisible={modalVisible}
-                  />
                 </View>
               );
             })}
+            <ViewJournalModal
+              text={selectedText}
+              setModalVisible={setModalVisible}
+              modalVisible={modalVisible}
+            />
           </ScrollView>
         </View>
       </ImageBackground>
