@@ -8,7 +8,6 @@ import {
   TextInput,
 } from "react-native";
 import { useFonts } from "expo-font";
-import axios from "react-native-axios";
 import { Header } from "../components/Header";
 import { useUserProvider } from "../provider/UserProvider";
 import { createJournal } from "../api/journal/CreateJournal";
@@ -16,7 +15,6 @@ import { SavedModal } from "../components/SavedModal";
 import { updateJournal } from "../api/journal/UpdateJournal";
 import { PROMPTS } from "../components/PROMPTS";
 import { getJournal } from "../api/journal/GetJournal";
-import { getTasks } from "../api/task/GetTasks";
 
 const initialValues = {
   journal: "",
